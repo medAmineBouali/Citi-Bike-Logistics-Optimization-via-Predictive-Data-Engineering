@@ -1,6 +1,13 @@
 data/bronze/historical/*
+!data/bronze/historical/.gitkeep
+
 data/bronze/real_time/*
+!data/bronze/real_time/.gitkeep
+
 data/silver/*
+!data/silver/.gitkeep
+
 data/gold/*
+!data/gold/.gitkeep
 .idea
 venv

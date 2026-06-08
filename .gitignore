@@ -1,0 +1,6 @@
+data/bronze/historical
+data/bronze/real_time
+data/silver
+data/gold
+.idea
+venv

@@ -17,6 +17,7 @@ This project leverages a modern cloud data architecture on **Azure** and **Datab
 *   **Processing & ETL:** **PySpark** running on **Databricks** clusters to clean, transform, and aggregate massive datasets into a structured Star Schema (Fact and Dimension tables).
 *   **Orchestration:** **Databricks Workflows (Jobs)** to schedule and automate the pipeline.
 *   **Machine Learning:** **Spark MLlib** (Clustering/K-Means) and **Scikit-Learn/TensorFlow** (Time-series forecasting) to identify behavioral zones and predict station demand.
+![Citi Bike Analytics Architecture](./assets/citi_bike_architecture.png)
 
 ## 📊 Key Performance Indicators (KPIs)
 The transformed data feeds directly into our BI layer to track the following metrics:

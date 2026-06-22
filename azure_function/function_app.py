@@ -20,7 +20,7 @@ CONTAINER_NAME = "bronze"
 def fetch_station_status(myTimer: func.TimerRequest) -> None:
     STATUS_URL = "https://gbfs.citibikenyc.com/gbfs/en/station_status.json"
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-    blob_path = f"real_time/{timestamp_str}_station_status.json"
+    blob_path = f"gbfs_data/{timestamp_str}_station_status.json"
 
     try:
         logging.info(f"Fetching live GBFS inventory at {timestamp_str}...")
@@ -43,7 +43,7 @@ def fetch_station_status(myTimer: func.TimerRequest) -> None:
 @app.timer_trigger(schedule="0 0 0 * * 1" , arg_name="myTimer", run_on_startup=False, use_monitor=False)
 def fetch_station_information(myTimer: func.TimerRequest) -> None:
     INFO_URL = "https://gbfs.citibikenyc.com/gbfs/en/station_information.json"
-    etag_blob_path = "real_time/.station_info_etag"
+    etag_blob_path = "gbfs_data/.station_info_etag"
     headers = {}
 
     try:
@@ -62,7 +62,7 @@ def fetch_station_information(myTimer: func.TimerRequest) -> None:
 
         if resp.status_code == 200:
             timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-            json_blob_path = f"real_time/{timestamp_str}_station_information.json"
+            json_blob_path = f"gbfs_data/{timestamp_str}_station_information.json"
 
             json_blob_client = blob_service_client.get_blob_client(container=CONTAINER_NAME, blob=json_blob_path)
             json_blob_client.upload_blob(resp.text, overwrite=True)

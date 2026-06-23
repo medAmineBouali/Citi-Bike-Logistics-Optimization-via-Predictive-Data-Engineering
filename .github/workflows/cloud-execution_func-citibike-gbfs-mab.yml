@@ -1,7 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure Functions: https://aka.ms/python-webapps-actions
-
 name: Build and deploy Python project to Azure Function App - func-citibike-gbfs-mab
 
 on:
@@ -29,12 +25,10 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Create virtual environment and install dependencies
+      - name: Install dependencies into Azure's native worker directory
         run: |
           pushd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+          pip install --target="./.python_packages/lib/site-packages" -r requirements.txt
           popd
 
       - name: Zip artifact for deployment
@@ -47,9 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: |
-            ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/release.zip
-            !${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/venv/
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -73,4 +65,4 @@ jobs:
           app-name: 'func-citibike-gbfs-mab'
           slot-name: 'Production'
           package: '.'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7DF9C93C42B34AF2A1981CEC089E7B92 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6B2CE902BE7848F3A7606C35EB8C13AE }}

@@ -72,5 +72,5 @@ jobs:
         with:
           app-name: 'func-citibike-gbfs'
           slot-name: 'Production'
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          package: '.'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7DF9C93C42B34AF2A1981CEC089E7B92 }}

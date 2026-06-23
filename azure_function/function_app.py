@@ -16,7 +16,7 @@ CONTAINER_NAME = "bronze"
 # SCRIPT 1: The High-Velocity Fact Stream (Station Status)
 # Runs every 5 minutes: "0 */5 * * * *"
 # =====================================================================
-@app.timer_trigger(schedule="0 */5 * * * *", arg_name="myTimer", run_on_startup=False, use_monitor=False)
+@app.timer_trigger(schedule="0 */5 * * * *", arg_name="myTimer", run_on_startup=True, use_monitor=True)
 def fetch_station_status(myTimer: func.TimerRequest) -> None:
     STATUS_URL = "https://gbfs.citibikenyc.com/gbfs/en/station_status.json"
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -40,7 +40,7 @@ def fetch_station_status(myTimer: func.TimerRequest) -> None:
 # SCRIPT 2: The Slowly Changing Dimension (Station Information)
 # Runs every Monday at midnight UTC
 # =====================================================================
-@app.timer_trigger(schedule="0 0 0 * * 1" , arg_name="myTimer", run_on_startup=False, use_monitor=False)
+@app.timer_trigger(schedule="0 0 0 * * 1" , arg_name="myTimer", run_on_startup=True, use_monitor=True)
 def fetch_station_information(myTimer: func.TimerRequest) -> None:
     INFO_URL = "https://gbfs.citibikenyc.com/gbfs/en/station_information.json"
     etag_blob_path = "gbfs_data/.station_info_etag"
